@@ -12,11 +12,11 @@ try:
 
         copy_directory(output_dir, input_dir)
 
-        is_countinued = is_interaction_continued(
+        is_continued = is_interaction_continued(
             "Copying has been finished. Do you want to continue with another folders? (yes/no)"
         )
 
-        if not is_countinued:
+        if not is_continued:
             print("\nThank you for choosing our script. Have a nice day :)")
             break
 
