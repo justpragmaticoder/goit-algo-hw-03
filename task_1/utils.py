@@ -52,4 +52,9 @@ def copy_directory(output_dir, input_dir):
             shutil.copy(file_path, os.path.join(dir_path, filename))
 
         if os.path.isdir(file_path):
-            copy_directory(output_dir, file_path)
+            try:
+                copy_directory(output_dir, file_path)
+            except Exception as e:
+                print(
+                    f"\nNon-expected error occured while trying to copy file ${filename}: ${str(e)}"
+                )
