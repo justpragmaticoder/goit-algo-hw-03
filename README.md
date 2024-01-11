@@ -1,0 +1,3 @@
+Depending on your python version:
+
+python3 task_1/main.py --input-dir ... --output-dir ...
