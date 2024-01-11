@@ -1,9 +1,13 @@
 import os
 import shutil
+import argparse
+from pathlib import Path
+
+OUTPUT_DEFAULT_DIR = "./dist"
 
 
-def is_path_exists(path: str):
-    return os.path.exists(os.path.dirname(path))
+def is_path_exists(path_str: str):
+    return Path(path_str).exists()
 
 
 def prepare_dir(path: str):
@@ -24,6 +28,28 @@ def get_directory_path(message: str, default_dir=None):
         print(
             "Sorry, but your path is invalid (directory not exist). Please, try again."
         )
+
+
+def extract_arguments():
+    parser = argparse.ArgumentParser(
+        description="Copy files from one directory to another."
+    )
+    parser.add_argument("--input-dir", help="Input directory path", required=True)
+    parser.add_argument(
+        "--output-dir", help="Output directory path", default=OUTPUT_DEFAULT_DIR
+    )
+
+    args = parser.parse_args()
+
+    output_dir = args.output_dir.strip()
+    input_dir = args.input_dir.strip()
+
+    if not is_path_exists(input_dir):
+        raise ValueError("input-dir path doesn't exist")
+
+    prepare_dir(output_dir)
+
+    return {"output_dir": args.output_dir, "input_dir": args.input_dir}
 
 
 def is_interaction_continued(message: str):
